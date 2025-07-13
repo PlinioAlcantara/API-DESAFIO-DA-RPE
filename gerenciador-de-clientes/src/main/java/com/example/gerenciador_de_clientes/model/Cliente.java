@@ -1,5 +1,6 @@
 package com.example.gerenciador_de_clientes.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -17,9 +18,10 @@ public class Cliente {
     private Double limiteCredito;
 
     @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
     private List<Fatura> faturas;
 
-    // Getters and Setters
+
 
     public Long getId() {
         return id;

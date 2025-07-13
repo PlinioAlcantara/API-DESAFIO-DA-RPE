@@ -1,5 +1,6 @@
 package com.example.gerenciador_de_clientes.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.ManyToOne;
 
 import jakarta.persistence.*;
@@ -13,7 +14,8 @@ public class Fatura {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id" )
+    @JsonBackReference
     private Cliente cliente;
 
     private Date dataVencimento;
@@ -21,7 +23,7 @@ public class Fatura {
     private Double valor;
     private String status;
 
-    // Getters and Setters
+
 
     public Long getId() {
         return id;
