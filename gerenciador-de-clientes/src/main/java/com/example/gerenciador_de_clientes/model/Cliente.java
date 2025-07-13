@@ -1,6 +1,6 @@
 package com.example.gerenciador_de_clientes.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
