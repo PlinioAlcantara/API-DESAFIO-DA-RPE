@@ -1,9 +1,12 @@
 package com.example.gerenciador_de_clientes.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.ManyToOne;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,9 +20,10 @@ public class Fatura {
     @JoinColumn(name = "cliente_id", referencedColumnName = "id" )
     @JsonBackReference
     private Cliente cliente;
-
-    private Date dataVencimento;
-    private Date dataPagamento;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataVencimento;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataPagamento;
     private Double valor;
     private String status;
 
@@ -41,19 +45,19 @@ public class Fatura {
         this.cliente = cliente;
     }
 
-    public Date getDataVencimento() {
+    public LocalDate getDataVencimento() {
         return dataVencimento;
     }
 
-    public void setDataVencimento(Date dataVencimento) {
+    public void setDataVencimento(LocalDate dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
 
-    public Date getDataPagamento() {
+    public LocalDate getDataPagamento() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(Date dataPagamento) {
+    public void setDataPagamento(LocalDate dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
 
