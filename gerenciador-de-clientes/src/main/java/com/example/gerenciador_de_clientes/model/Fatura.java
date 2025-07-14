@@ -20,9 +20,9 @@ public class Fatura {
     @JoinColumn(name = "cliente_id", referencedColumnName = "id" )
     @JsonBackReference
     private Cliente cliente;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataVencimento;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataPagamento;
     private Double valor;
     private String status;
