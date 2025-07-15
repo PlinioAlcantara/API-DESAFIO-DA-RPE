@@ -87,6 +87,46 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ````
 
+## Scrpits para sinserção de clientes
+
+```SQL
+
+INSERT INTO cliente (nome, cpf, data_nascimento, status_bloqueio, limite_credito)
+VALUES
+   ('João Silva', '12345678901', '1985-02-15', 'A', 1500.00),  -- Cliente Ativo
+   ('Maria Oliveira', '23456789012', '1990-07-20', 'A', 2000.00),  -- Cliente Ativo
+   ('Pedro Santos', '34567890123', '1982-12-05', 'B', 0.00),  -- Cliente Bloqueado
+   ('Ana Costa', '45678901234', '1995-03-12', 'A', 1200.00),  -- Cliente Ativo
+   ('Carlos Pereira', '56789012345', '1980-09-30', 'B', 0.00);  -- Cliente Bloqueado
+```
+
+## Scripts para inserção de Faturas
+
+```
+-- Inserir Faturas
+INSERT INTO fatura (cliente_id, data_vencimento, data_pagamento, valor, status)
+VALUES
+  -- Faturas do Cliente João Silva (ID 1)
+  (1, '2023-05-15', NULL, 500.00, 'B'),  
+  (1, '2023-06-15', '2023-06-10', 600.00, 'P'),  
+
+  -- Faturas do Cliente Maria Oliveira (ID 2)
+  (2, '2023-07-20', NULL, 700.00, 'A'),  
+  (2, '2023-08-10', '2023-08-01', 800.00, 'P'),  
+
+  -- Faturas do Cliente Pedro Santos (ID 3)
+  (3, '2023-04-01', NULL, 400.00, 'A'),  
+  (3, '2023-05-10', NULL, 300.00, 'B'),  
+
+  -- Faturas do Cliente Ana Costa (ID 4)
+  (4, '2023-09-15', NULL, 250.00, 'B'),  
+  (4, '2023-10-05', '2023-10-02', 400.00, 'P'),  
+
+  -- Faturas do Cliente Carlos Pereira (ID 5)
+  (5, '2023-06-20', '2023-06-15', 350.00, 'P'),  
+  (5, '2023-07-01', NULL, 450.00, 'A');  
+```
+
 ## Dockerfile
 O Dockerfile está configurado para rodar a aplicação Spring Boot dentro de um container. O comando para construir a imagem é:
 
@@ -105,7 +145,6 @@ mvn test
 ## OBSERVAÇÕES
 
 As imagens do docker foram geradas, na minha máquina, mas na hora de fazer a implementação dentro do container, a conexão entre o back e front acabam falhando, e não consegui resolver esse erro antes do horário da entrega. 
-
 
 
 
