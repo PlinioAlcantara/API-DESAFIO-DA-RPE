@@ -1,0 +1,50 @@
+
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gerenciador_de_clientes
+    ports:
+      - "3307:3306"
+    networks:
+      - backend
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: always
+
+  spring-boot-app:
+    image: gerenciador-de-clientes-backend
+    container_name: spring-boot-app
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/gerenciador_de_clientes?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    command: ["./wait-for-it.sh", "mysql:3306", "--", "java", "-jar", "app.jar"]
+
+  frontend-app:
+    image: gerenciador-de-clientes-frontend
+    container_name: frontend-app
+    ports:
+      - "4173:4173"
+    networks:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:8080
+    depends_on:
+      - spring-boot-app
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mysql-data: {}
